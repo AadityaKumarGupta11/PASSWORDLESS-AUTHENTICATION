@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RAPAS Feature Vector Result - Context Data Analysis">
+    <title>RAPAS — Feature Vector Result</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="result-wrapper">
+
+        <!-- Page Header -->
+        <p class="page-title">Context collected for <strong>{{ raw_data.username }}</strong></p>
+
+        <div class="divider-full"></div>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 1: Raw Collected Data                                -->
+        <!-- ============================================================ -->
+        <h2 class="section-heading">Raw Context Data</h2>
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Attribute</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Username</td><td>{{ raw_data.username }}</td></tr>
+                <tr><td>IP Address</td><td>{{ raw_data.ip_address }}</td></tr>
+                <tr><td>City</td><td>{{ raw_data.city }}</td></tr>
+                <tr><td>Country</td><td>{{ raw_data.country }}</td></tr>
+                <tr><td>Latitude</td><td>{{ raw_data.latitude }}</td></tr>
+                <tr><td>Longitude</td><td>{{ raw_data.longitude }}</td></tr>
+                <tr><td>Timestamp (UTC)</td><td>{{ raw_data.timestamp }}</td></tr>
+                <tr><td>Login Hour</td><td>{{ raw_data.login_hour }}:00</td></tr>
+                <tr><td>Day of Week</td><td>{{ raw_data.day_of_week }} (0=Mon, 6=Sun)</td></tr>
+                <tr><td>Time Category</td><td>{{ raw_data.time_category | capitalize }}</td></tr>
+                <tr><td>Browser</td><td>{{ raw_data.browser }}</td></tr>
+                <tr><td>Operating System</td><td>{{ raw_data.os }}</td></tr>
+                <tr><td>Screen Resolution</td><td>{{ raw_data.screen_resolution }}</td></tr>
+                <tr><td>CPU Cores</td><td>{{ raw_data.hardware_concurrency }}</td></tr>
+                <tr><td>Device Memory</td><td>{{ raw_data.device_memory }} GB</td></tr>
+                <tr><td>User Agent</td><td>{{ raw_data.user_agent }}</td></tr>
+                <tr><td>Mouse Clicks</td><td>{{ raw_data.mouse_clicks }}</td></tr>
+                <tr><td>Keystroke Samples</td><td>{{ raw_data.keystroke_samples }}</td></tr>
+            </tbody>
+        </table>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 2: Computed Feature Vector                           -->
+        <!-- ============================================================ -->
+        <h2 class="section-heading">Computed Feature Vector</h2>
+
+        <table class="feature-table">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Value</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Device Fingerprint -->
+                <tr>
+                    <td class="feature-name">device_fingerprint</td>
+                    <td class="feature-value">
+                        <span class="fingerprint">{{ feature_vector.device_fingerprint }}</span>
+                    </td>
+                    <td class="feature-status">
+                        {% if "Known" in flags.device_novelty %}
+                            <span class="badge badge-green">{{ flags.device_novelty }}</span>
+                        {% else %}
+                            <span class="badge badge-red">{{ flags.device_novelty }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+
+                <!-- Device Novelty -->
+                <tr>
+                    <td class="feature-name">device_novelty</td>
+                    <td class="feature-value">{{ feature_vector.device_novelty }}</td>
+                    <td class="feature-status">
+                        {% if feature_vector.device_novelty == 0.0 %}
+                            <span class="badge badge-green">{{ flags.device_novelty }}</span>
+                        {% else %}
+                            <span class="badge badge-red">{{ flags.device_novelty }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+
+                <!-- Location Change -->
+                <tr>
+                    <td class="feature-name">location_change</td>
+                    <td class="feature-value">{{ feature_vector.location_change }}</td>
+                    <td class="feature-status">
+                        {% if feature_vector.location_change == 0.0 %}
+                            <span class="badge badge-green">{{ flags.location_change }}</span>
+                        {% else %}
+                            <span class="badge badge-red">{{ flags.location_change }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+
+                <!-- Session Gap -->
+                <tr>
+                    <td class="feature-name">session_gap_hours</td>
+                    <td class="feature-value">{{ feature_vector.session_gap_hours }}</td>
+                    <td class="feature-status">
+                        {% if "Normal" in flags.session_gap_hours %}
+                            <span class="badge badge-green">{{ flags.session_gap_hours }}</span>
+                        {% else %}
+                            <span class="badge badge-yellow">{{ flags.session_gap_hours }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+
+                <!-- Login Hour Deviation -->
+                <tr>
+                    <td class="feature-name">login_hour_deviation</td>
+                    <td class="feature-value">{{ feature_vector.login_hour_deviation }}</td>
+                    <td class="feature-status">
+                        {% if "Typical" in flags.login_hour_deviation %}
+                            <span class="badge badge-green">{{ flags.login_hour_deviation }}</span>
+                        {% else %}
+                            <span class="badge badge-yellow">{{ flags.login_hour_deviation }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+
+                <!-- Keystroke Dwell -->
+                <tr>
+                    <td class="feature-name">avg_keystroke_dwell_ms</td>
+                    <td class="feature-value">{{ feature_vector.avg_keystroke_dwell_ms }} ms</td>
+                    <td class="feature-status">
+                        {% if "Normal" in flags.avg_keystroke_dwell_ms %}
+                            <span class="badge badge-green">{{ flags.avg_keystroke_dwell_ms }}</span>
+                        {% else %}
+                            <span class="badge badge-yellow">{{ flags.avg_keystroke_dwell_ms }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+
+                <!-- Keystroke Flight -->
+                <tr>
+                    <td class="feature-name">avg_keystroke_flight_ms</td>
+                    <td class="feature-value">{{ feature_vector.avg_keystroke_flight_ms }} ms</td>
+                    <td class="feature-status">
+                        {% if "Normal" in flags.avg_keystroke_flight_ms %}
+                            <span class="badge badge-green">{{ flags.avg_keystroke_flight_ms }}</span>
+                        {% else %}
+                            <span class="badge badge-yellow">{{ flags.avg_keystroke_flight_ms }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+
+                <!-- Login Frequency -->
+                <tr>
+                    <td class="feature-name">login_frequency_score</td>
+                    <td class="feature-value">{{ feature_vector.login_frequency_score }}</td>
+                    <td class="feature-status">
+                        {% if "Active" in flags.login_frequency_score %}
+                            <span class="badge badge-green">{{ flags.login_frequency_score }}</span>
+                        {% else %}
+                            <span class="badge badge-yellow">{{ flags.login_frequency_score }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+
+                <!-- Time Category -->
+                <tr>
+                    <td class="feature-name">time_category_encoded</td>
+                    <td class="feature-value">{{ feature_vector.time_category_encoded }}</td>
+                    <td class="feature-status">
+                        <span class="badge badge-green">{{ flags.time_category_encoded }}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- ============================================================ -->
+        <!-- SECTION 3: Ready Banner                                      -->
+        <!-- ============================================================ -->
+        <div class="divider-full"></div>
+
+        <div class="ready-banner">
+            <div class="checkmark">&#10003;</div>
+            <h3>Feature Vector Ready</h3>
+
+            <!-- Pipeline -->
+            <div class="pipeline" style="margin-top: 20px;">
+                <span class="pipeline-step active">FR-01 Data & Risk</span>
+                <span class="pipeline-arrow">&rarr;</span>
+                <span class="pipeline-step">FR-02 Decision & OTP</span>
+                <span class="pipeline-arrow">&rarr;</span>
+                <span class="pipeline-step">FR-03 Profile & Logs</span>
+            </div>
+        </div>
+
+        <a href="/" class="back-link">&larr; Try another login</a>
+
+    </div>
+</body>
+</html>

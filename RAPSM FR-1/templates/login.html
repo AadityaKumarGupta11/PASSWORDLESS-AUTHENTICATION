@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RAPAS - Risk-Adaptive Passwordless Authentication System Login">
+    <title>RAPAS — Secure Login</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="login-wrapper">
+        <div class="login-container">
+
+            <!-- Wordmark -->
+            <div class="wordmark">
+                <h1>RAPAS</h1>
+                <p>Risk-Adaptive Passwordless Authentication</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Form Card -->
+            <div class="form-card">
+                <form id="login-form" method="POST" action="/login">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            placeholder="Enter your username"
+                            autocomplete="off"
+                            required
+                        >
+                        <p class="hint">Keystroke dynamics are being measured</p>
+                    </div>
+
+                    <!-- Hidden field: collector.js puts all browser data here -->
+                    <input type="hidden" id="client_data" name="client_data" value="{}">
+
+                    <button type="submit" id="login-btn" class="btn">
+                        Continue
+                    </button>
+                </form>
+            </div>
+
+            <!-- Pipeline -->
+            <div class="pipeline" style="margin-top: 32px;">
+                <span class="pipeline-step active">FR-01 Data & Risk</span>
+                <span class="pipeline-arrow">&rarr;</span>
+                <span class="pipeline-step">FR-02 Decision & OTP</span>
+                <span class="pipeline-arrow">&rarr;</span>
+                <span class="pipeline-step">FR-03 Profile & Logs</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Load the browser-side collector script -->
+    <script src="/static/collector.js"></script>
+</body>
+</html>

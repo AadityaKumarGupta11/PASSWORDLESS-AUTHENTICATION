@@ -1,0 +1,468 @@
+/* =========================================================================
+   RAPAS — Style System
+   Risk-Adaptive Passwordless Authentication System
+   Strict Minimalist Design · FR-02
+   ========================================================================= */
+
+/* --- Font Import --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+/* --- Design Tokens --- */
+:root {
+    --bg-white: #FFFFFF;
+    --bg-subtle: #F4F4F5;
+    --text-primary: #0A0A0A;
+    --text-secondary: #71717A;
+    --text-muted: #A1A1AA;
+    --accent: #2563EB;
+    --border: #E4E4E7;
+    --badge-green-bg: #F0FDF4;
+    --badge-green-text: #16A34A;
+    --badge-green-border: #BBF7D0;
+    --badge-yellow-bg: #FEF3C7;
+    --badge-yellow-text: #D97706;
+    --badge-yellow-border: #FDE68A;
+    --badge-red-bg: #FEF2F2;
+    --badge-red-text: #DC2626;
+    --badge-red-border: #FECACA;
+}
+
+/* --- Reset --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- Base --- */
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-white);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.7;
+}
+
+/* =========================================================================
+   LOGIN PAGE — Centered Layout
+   ========================================================================= */
+
+.login-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 32px 24px;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 420px;
+}
+
+/* --- Wordmark --- */
+.wordmark {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.wordmark h1 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--text-primary);
+}
+
+.wordmark p {
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: var(--text-secondary);
+    margin-top: 6px;
+    letter-spacing: 0.01em;
+}
+
+.divider {
+    width: 48px;
+    height: 1px;
+    background: var(--border);
+    margin: 24px auto;
+}
+
+/* --- Form Card --- */
+.form-card {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 48px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+}
+
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 12px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.15s ease;
+}
+
+.form-group input[type="text"]::placeholder {
+    color: var(--text-muted);
+    font-weight: 300;
+}
+
+.form-group input[type="text"]:focus {
+    border-color: var(--accent);
+}
+
+.hint {
+    font-size: 0.72rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    margin-top: 8px;
+}
+
+/* --- Submit Button --- */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #FFFFFF;
+    background: var(--text-primary);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    margin-top: 24px;
+}
+
+.btn:hover {
+    background: var(--accent);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* =========================================================================
+   RESULT PAGE — Layout
+   ========================================================================= */
+
+.result-wrapper {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 64px 24px 48px;
+}
+
+/* --- Page Header --- */
+.page-label {
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+}
+
+.page-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.5;
+}
+
+.page-title strong {
+    font-weight: 600;
+}
+
+.divider-full {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    margin: 28px 0;
+}
+
+/* --- Section Headings --- */
+.section-heading {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    padding-left: 14px;
+    border-left: 3px solid var(--accent);
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+/* --- Data Tables --- */
+.data-table,
+.feature-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    margin-bottom: 40px;
+}
+
+.data-table th,
+.feature-table th {
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: left;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.data-table td,
+.feature-table td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+}
+
+/* Alternating rows */
+.data-table tbody tr:nth-child(even),
+.feature-table tbody tr:nth-child(even) {
+    background: var(--bg-subtle);
+}
+
+.data-table tbody tr:last-child td,
+.feature-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Attribute column */
+.data-table td:first-child {
+    color: var(--text-secondary);
+    font-weight: 500;
+    white-space: nowrap;
+    width: 180px;
+}
+
+.data-table td:nth-child(2) {
+    color: var(--text-primary);
+    font-weight: 400;
+    word-break: break-all;
+}
+
+/* Feature table columns */
+.feature-table td.feature-name {
+    color: var(--text-secondary);
+    font-weight: 500;
+    white-space: nowrap;
+    font-family: 'Inter', sans-serif;
+}
+
+.feature-table td.feature-value {
+    color: var(--text-primary);
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+}
+
+.feature-table td.feature-status {
+    white-space: nowrap;
+}
+
+/* --- Status Badges --- */
+.badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 2px 10px;
+    border-radius: 20px;
+    border: 1px solid;
+    line-height: 1.6;
+}
+
+.badge-green {
+    color: var(--badge-green-text);
+    background: var(--badge-green-bg);
+    border-color: var(--badge-green-border);
+}
+
+.badge-yellow {
+    color: var(--badge-yellow-text);
+    background: var(--badge-yellow-bg);
+    border-color: var(--badge-yellow-border);
+}
+
+.badge-red {
+    color: var(--badge-red-text);
+    background: var(--badge-red-bg);
+    border-color: var(--badge-red-border);
+}
+
+/* --- Fingerprint Truncation --- */
+.fingerprint {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    vertical-align: bottom;
+    font-variant-numeric: tabular-nums;
+}
+
+/* --- Ready Banner --- */
+.ready-banner {
+    text-align: center;
+    padding: 36px 24px;
+    margin-bottom: 24px;
+}
+
+.ready-banner .checkmark {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 12px;
+}
+
+.ready-banner h3 {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+
+.ready-banner p {
+    font-size: 0.78rem;
+    font-weight: 300;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* =========================================================================
+   PIPELINE INDICATOR
+   ========================================================================= */
+
+.pipeline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.pipeline-step {
+    font-size: 0.7rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    padding: 4px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.02em;
+}
+
+.pipeline-step.active {
+    background: var(--text-primary);
+    color: #FFFFFF;
+    font-weight: 500;
+}
+
+.pipeline-step.done {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.pipeline-arrow {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+}
+
+/* --- Back Link --- */
+.back-link {
+    display: inline-block;
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    text-decoration: none;
+    margin-top: 24px;
+    transition: color 0.15s ease;
+}
+
+.back-link:hover {
+    color: var(--accent);
+}
+
+/* =========================================================================
+   RESPONSIVE
+   ========================================================================= */
+
+@media (max-width: 640px) {
+    .login-wrapper {
+        padding: 24px 16px;
+    }
+
+    .form-card {
+        padding: 32px 24px;
+    }
+
+    .result-wrapper {
+        padding: 40px 16px 32px;
+    }
+
+    .data-table td:first-child {
+        width: auto;
+    }
+
+    .pipeline {
+        gap: 4px;
+    }
+
+    .pipeline-step {
+        font-size: 0.62rem;
+        padding: 3px 7px;
+    }
+}
+
+/* =========================================================================
+   PRINT
+   ========================================================================= */
+
+@media print {
+    body {
+        font-size: 12pt;
+    }
+
+    .pipeline,
+    .back-link,
+    .btn {
+        display: none;
+    }
+
+    .form-card,
+    .data-table td,
+    .feature-table td {
+        border-color: #ccc;
+    }
+}

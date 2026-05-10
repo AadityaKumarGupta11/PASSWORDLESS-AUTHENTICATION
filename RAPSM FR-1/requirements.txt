@@ -1,0 +1,8 @@
+# RAPAS - Risk-Adaptive Passwordless Authentication System
+# FR-02: Context Data Collection and Feature Engineering
+# Install with: pip install -r requirements.txt
+
+Flask==3.1.1          # Web framework for our backend
+numpy==2.2.6          # Numerical operations for feature engineering
+pandas==2.2.3         # Data manipulation and analysis
+requests==2.32.3      # HTTP requests (for ip-api.com geolocation)
